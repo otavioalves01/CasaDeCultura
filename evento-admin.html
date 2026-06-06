@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Cultural - Definir Evento</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="img/Logo.jpg">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="img/Logo.jpg" alt="Logo Casa de Cultura Raul Seixas" style="width:35px;height:35px;object-fit:cover;border-radius:50%;">
+        <span>CULTURA SP</span>
+    </div>
+    
+        <button class="hamburger-menu" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+        <a href="index.html">Home</a>
+            <a href="mapa.html">Mapa Cultural</a>
+        <a href="evento-admin.html" class="active-nav">Definir evento</a>
+        <a href="contato.html">Contato</a>
+        <a href="#" id="btnSairAdmin">Sair</a>
+    </div>
+</nav>
+
+<main class="container admin-event-page">
+    <section class="event-form-card">
+        <h1>Definir evento</h1>
+        <p class="form-subtitle">Preencha as informações do seu evento cultural.</p>
+
+        <div id="mensagemEvento" class="auth-message"></div>
+
+        <form id="eventoForm" enctype="multipart/form-data" novalidate>
+            <div class="event-periodicity">
+                <h3>Tipo de periodicidade</h3>
+                <div class="periodicity-grid">
+                    <label class="periodicity-option active">
+                        <input type="radio" name="periodicidade" value="Semanal" checked>
+                        <span>
+                            <strong>Semanal</strong>
+                            <small>O evento acontece toda semana</small>
+                        </span>
+                    </label>
+                    <label class="periodicity-option">
+                        <input type="radio" name="periodicidade" value="Mensal">
+                        <span>
+                            <strong>Mensal</strong>
+                            <small>O evento acontece todo mês</small>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row event-two-columns">
+                <div class="form-group">
+                    <label for="nomeEvento">Nome do evento <span class="required">*</span></label>
+                    <input type="text" id="nomeEvento" name="nomeEvento" placeholder="Ex: Aula de Zumba" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoriaEvento">Categoria <span class="required">*</span></label>
+                    <select id="categoriaEvento" name="categoriaEvento" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option>Música</option>
+                        <option>Dança</option>
+                        <option>Teatro</option>
+                        <option>Oficina</option>
+                        <option>Festival</option>
+                        <option>Literatura</option>
+                        <option>Outro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row event-two-columns">
+                <div class="form-group">
+                    <label for="dataEvento">Data do evento <span class="required">*</span></label>
+                    <input type="date" id="dataEvento" name="dataEvento" required>
+                </div>
+                <div class="form-group">
+                    <label for="horarioEvento">Horário do evento <span class="required">*</span></label>
+                    <input type="time" id="horarioEvento" name="horarioEvento" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="localEvento">Local do evento <span class="required">*</span></label>
+                <input type="text" id="localEvento" name="localEvento" placeholder="Ex: Casa de Cultura Raul Seixas - Itaquera" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricaoEvento">Descrição do evento <span class="required">*</span></label>
+                <textarea id="descricaoEvento" name="descricaoEvento" placeholder="Descreva seu evento, objetivos, público-alvo, atividades, etc." maxlength="1000" required></textarea>
+                <span class="char-hint admin-char-hint" id="contadorDescricao">0/1000</span>
+            </div>
+
+            <div class="event-bottom-grid">
+                <div class="form-group">
+                    <label for="imagemEvento">Imagem do evento</label>
+                    <label class="upload-box" for="imagemEvento">
+                        <span class="upload-icon">▧</span>
+                        <strong>Clique para enviar uma imagem</strong>
+                        <small>ou arraste e solte aqui</small>
+                        <em>Formatos: JPG, PNG. Tamanho máximo: 5MB</em>
+                    </label>
+                    <input type="file" id="imagemEvento" name="imagemEvento" accept="image/png,image/jpeg" hidden>
+                    <p id="nomeArquivo" class="form-info"></p>
+                </div>
+
+                <div class="form-group">
+                    <label>Acessibilidade</label>
+                    <p class="form-info">Selecione os recursos de acessibilidade disponíveis no evento:</p>
+                    <div class="accessibility-grid">
+                        <label><input type="checkbox" name="acessibilidade" value="Libras (Intérprete)"> 🤟 Libras (Intérprete)</label>
+                        <label><input type="checkbox" name="acessibilidade" value="Rampa de acesso"> ♿ Rampa de acesso</label>
+                        <label><input type="checkbox" name="acessibilidade" value="Audiodescrição"> 🔊 Audiodescrição</label>
+                        <label><input type="checkbox" name="acessibilidade" value="Espaço para cadeirantes"> ♿ Espaço para cadeirantes</label>
+                        <label><input type="checkbox" name="acessibilidade" value="Banheiro acessível"> 🚻 Banheiro acessível</label>
+                        <label><input type="checkbox" name="acessibilidade" value="Outros"> ••• Outros</label>
+                    </div>
+                    <input type="text" id="outrosAcessibilidade" name="outrosAcessibilidade" placeholder="Especifique outros recursos de acessibilidade">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit btn-event-save">💾 Salvar evento</button>
+        </form>
+    </section>
+</main>
+
+<script src="auth.js"></script>
+<script src="evento-admin.js"></script>
+
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuButton = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        if (!menuButton || !navLinks) return;
+
+        menuButton.addEventListener('click', function () {
+            const aberto = navLinks.classList.toggle('show-menu');
+            menuButton.classList.toggle('is-open', aberto);
+            menuButton.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+        });
+
+        navLinks.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('show-menu');
+                menuButton.classList.remove('is-open');
+                menuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

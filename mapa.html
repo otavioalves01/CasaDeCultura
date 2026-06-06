@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Cultural - Portal Cultural</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="img/Logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="img/Logo.jpg" alt="Logo Casa de Cultura Raul Seixas" style="width:35px;height:35px;object-fit:cover;border-radius:50%;">
+        <span>CULTURA SP</span>
+    </div>
+    
+        <button class="hamburger-menu" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="mapa.html" class="active-nav">Mapa Cultural</a>
+        <a href="contato.html">Contato</a>
+        <a href="login.html">Login</a>
+        <a href="cadastro.html">Cadastro</a>
+    </div>
+</nav>
+
+<main class="container mapa-cultural-main">
+    <section class="mapa-cultural-integrado mapa-cultural-pagina" id="mapa-cultural-section">
+        <div class="mapa-topo">
+            <div>
+                <h2>Mapa Cultural</h2>
+                <p class="section-subtitle">Encontre unidades culturais, veja informações de contato e trace rotas pelo mapa.</p>
+            </div>
+            <button class="btn-localizacao" id="btn-localizacao" type="button">📍 Usar minha localização</button>
+        </div>
+
+        <div class="mensagem-localizacao" id="mensagem-localizacao"></div>
+        <div class="info-rota" id="info-rota"></div>
+
+        <div class="mapa-conteudo">
+            <div id="mapa-cultural"></div>
+            <div class="lista-unidades-mapa" id="lista-unidades-mapa"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h3>Portal Cultural</h3>
+            <p>Um espaço para localizar casas de cultura, acessar informações, acompanhar programações e fortalecer a participação cultural na cidade.</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>Casa de Cultura Raul Seixas</h3>
+            <p><strong>Endereço:</strong> Rua Murmúrios da Tarde, 211 - Itaquera, São Paulo - SP, 08253-150</p>
+            <p><strong>Telefone:</strong> (11) 2521-1748</p>
+            <p><strong>E-mail:</strong> casadeculturaraulseixas@gmail.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>Horário de Funcionamento</h3>
+            <p>Segunda a Sexta: 08h às 20h</p>
+            <p>Sábados e Domingos: conforme programação de eventos</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>Mapa Cultural</h3>
+            <p>Use o mapa para visualizar unidades culturais, consultar links oficiais e traçar rotas a partir da sua localização.</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 Portal Cultural - Casas de Cultura de São Paulo. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="mapa.js"></script>
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuButton = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        if (!menuButton || !navLinks) return;
+
+        menuButton.addEventListener('click', function () {
+            const aberto = navLinks.classList.toggle('show-menu');
+            menuButton.classList.toggle('is-open', aberto);
+            menuButton.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+        });
+
+        navLinks.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('show-menu');
+                menuButton.classList.remove('is-open');
+                menuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

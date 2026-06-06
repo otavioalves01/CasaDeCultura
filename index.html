@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Cultural - Programação e Unidades</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="img/Logo.jpg">
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="img/Logo.jpg" alt="Logo Casa de Cultura Raul Seixas" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%;">
+            <span>CULTURA SP</span>
+        </div>
+        
+        <button class="hamburger-menu" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html" class="active-nav">Home</a>
+            <a href="mapa.html">Mapa Cultural</a>
+            <a href="contato.html">Contato</a>
+            <a href="login.html">Login</a>
+            <a href="cadastro.html">Cadastro</a>
+        </div>
+    </nav>
+
+    <div id="boasVindas"></div>
+
+    <main class="container">
+        <section class="progra">
+            <article id="pg">
+                <div class="pg-header">
+                    <h2>Programação Cultural</h2>
+                    <div class="tabs">
+                        <button class="btn-tab active" data-filter="semanal">Semanal</button>
+                        <button class="btn-tab" data-filter="mensal">Mensal</button>
+                    </div>
+                </div>
+                
+                <div id="pro-container" class="grid-programacao">
+                    </div>
+            </article>
+        </section>
+        <section class="mapa-section">
+            <article class="mapa-container">
+                <h2>Nossas Unidades</h2>
+                <div class="mapa-wrapper">
+                    <div id="map-display"></div>
+                    <div class="maps" id="lista-unidades"></div>
+                </div>
+            </article>
+        </section>
+
+        <section class="proje">
+            <h2>Projetos e atividades</h2>
+            <p class="section-subtitle">Conheca as iniciativas da Casa de Cultura Raul Seixas para a comunidade.</p>
+            <div id="projetos-container" class="grid-projetos">
+                </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Casa de Cultura Raul Seixas</h3>
+                <p>Um espaco de convivência, arte, formação e expressão cultural voltado para a comunidade e o protagonismo juvenil.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Informações de Contato</h3>
+                <p><strong>Endereço:</strong> Rua Murmurios da Tarde, 211 - Itaquera, Sao Paulo - SP, 08253-150</p>
+                <p><strong>Telefone:</strong> (11) 2521-1748</p>
+                <p><strong>E-mail:</strong> casadeculturaraulseixas@gmail.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Horário de Funcionamento</h3>
+                <p>Segunda a Sexta: 08h as 20h</p>
+                <p>Sabados e Domingos: Conforme programação de eventos</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Projetos e atividades</h3>
+                <p>Oficinas, encontros, formação artística e ações culturais para crianças, jovens, adultos e idosos.</p>
+                <p>Acompanhe a programação e participe das atividades abertas a comunidade.</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Portal Cultural - Casa de Cultura Raul Seixas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuButton = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        if (!menuButton || !navLinks) return;
+
+        menuButton.addEventListener('click', function () {
+            const aberto = navLinks.classList.toggle('show-menu');
+            menuButton.classList.toggle('is-open', aberto);
+            menuButton.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+        });
+
+        navLinks.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('show-menu');
+                menuButton.classList.remove('is-open');
+                menuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
