@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/jpeg" href="img/Logo.jpg">
 
+<script src="session-guard.js"></script>
 </head>
 <body>
 
@@ -26,6 +27,7 @@
         <div class="nav-links">
             <a href="index.html" class="active-nav">Home</a>
             <a href="mapa.html">Mapa Cultural</a>
+        <a href="galeria.html">Galeria</a>
             <a href="contato.html">Contato</a>
             <a href="login.html">Login</a>
             <a href="cadastro.html">Cadastro</a>
@@ -100,8 +102,11 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
-    <script src="auth.js"></script>
+    <script src="eventos-casas.js"></script>
+<script src="script.js"></script>
+<script src="instant.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
 
 
 <div vw class="enabled">
@@ -114,29 +119,6 @@
 <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const menuButton = document.querySelector('.hamburger-menu');
-        const navLinks = document.querySelector('.nav-links');
-        if (!menuButton || !navLinks) return;
-
-        menuButton.addEventListener('click', function () {
-            const aberto = navLinks.classList.toggle('show-menu');
-            menuButton.classList.toggle('is-open', aberto);
-            menuButton.setAttribute('aria-expanded', aberto ? 'true' : 'false');
-        });
-
-        navLinks.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                navLinks.classList.remove('show-menu');
-                menuButton.classList.remove('is-open');
-                menuButton.setAttribute('aria-expanded', 'false');
-            });
-        });
-    });
-</script>
-
+    <script src="menu.js"></script>
 </body>
 </html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Cultural - Cadastro de Artistas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="img/Logo.jpg">
+<script src="session-guard.js"></script>
+</head>
+<body class="admin-body">
+
+<nav class="navbar admin-navbar-clean">
+    <div class="logo">
+        <img src="img/Logo.jpg" alt="Logo Casa de Cultura Raul Seixas" style="width:35px;height:35px;object-fit:cover;border-radius:50%;">
+        <span>CULTURA SP</span>
+    </div>
+
+    <button class="hamburger-menu" type="button" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="contato.html">Contato</a>
+        <a href="cadastro-artista.html" class="active-nav">Artista</a>
+        <a href="#" id="btnSairArtista">Sair</a>
+    </div>
+</nav>
+
+<main class="artist-dashboard">
+    <section class="artist-admin-panel">
+        <div class="artist-admin-header">
+            <span class="admin-eyebrow">Formulário cultural</span>
+            <h1>Cadastro de Artistas, Grupos e Projetos</h1>
+            <p>Preencha as informações abaixo para registrar artistas, coletivos, oficinas, apresentações ou propostas culturais para as Casas de Cultura.</p>
+        </div>
+
+        <div id="mensagemArtista" class="auth-message artist-msg"></div>
+
+        <form id="artistaForm" class="artist-form-admin" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nomeArtistico">Nome artístico, grupo ou projeto <span class="required">*</span></label>
+                    <input type="text" id="nomeArtistico" placeholder="Ex: Coletivo Cultural / Nome artístico" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoriaArtistica">Categoria artística <span class="required">*</span></label>
+                    <select id="categoriaArtistica" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option>Música</option>
+                        <option>Dança</option>
+                        <option>Teatro</option>
+                        <option>Artes Visuais</option>
+                        <option>Literatura</option>
+                        <option>Cultura Hip Hop</option>
+                        <option>Oficina</option>
+                        <option>Outro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="responsavel">Responsável pelo cadastro <span class="required">*</span></label>
+                    <input type="text" id="responsavel" placeholder="Nome completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="contatoArtista">Contato <span class="required">*</span></label>
+                    <input type="text" id="contatoArtista" placeholder="E-mail, telefone, WhatsApp ou rede social" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="localInteresse">Casa de Cultura de interesse</label>
+                    <select id="localInteresse">
+                        <option value="">Selecione uma unidade</option>
+                        <option>Brasilândia</option>
+                        <option>Butantã</option>
+                        <option>Campo Limpo</option>
+                        <option>Chico Science (Ipiranga)</option>
+                        <option>Freguesia do Ó</option>
+                        <option>Guaianases</option>
+                        <option>Hip Hop Leste</option>
+                        <option>Hip Hop Sul</option>
+                        <option>Itaim Paulista</option>
+                        <option>Itaquera (Raul Seixas)</option>
+                        <option>M'Boi Mirim</option>
+                        <option>Parelheiros</option>
+                        <option>Santo Amaro (Júlio Guerra)</option>
+                        <option>Santo Amaro (Manoel Cardoso)</option>
+                        <option>São Mateus</option>
+                        <option>São Miguel Paulista</option>
+                        <option>São Rafael</option>
+                        <option>Tremembé</option>
+                        <option>Vila Guilherme (Casarão)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="disponibilidadeArtista">Disponibilidade</label>
+                    <input type="text" id="disponibilidadeArtista" placeholder="Ex: finais de semana, noite, manhã, mensal...">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="descricaoArtista">Apresentação artística <span class="required">*</span></label>
+                <textarea id="descricaoArtista" placeholder="Descreva o artista, grupo, oficina, apresentação ou projeto cultural." required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="necessidadesArtista">Necessidades para realizar a atividade</label>
+                    <textarea id="necessidadesArtista" placeholder="Ex: som, microfone, sala ampla, cadeiras, projetor..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="linksArtista">Links ou redes sociais</label>
+                    <textarea id="linksArtista" placeholder="Instagram, YouTube, portfólio, site ou outros links."></textarea>
+                </div>
+            </div>
+
+            <div class="artist-actions">
+                <button type="submit" class="btn-submit">Enviar cadastro</button>
+            </div>
+        </form>
+
+        <div class="artist-info-row">
+            <article class="artist-info-card">
+                <h3>Sugestão de Eventos</h3>
+                <p>Envie ideias de oficinas, apresentações e atividades para fortalecer a programação cultural.</p>
+            </article>
+            <article class="artist-info-card">
+                <h3>Cadastro de Artista, Grupo ou Projeto Cultural</h3>
+                <p>Registre propostas de artistas, grupos e coletivos para futuras parcerias culturais.</p>
+            </article>
+            <article class="artist-info-card">
+                <h3>Programa Jovem Monitor Cultural</h3>
+                <p>Espaço voltado à participação juvenil, formação cultural e apoio às atividades das unidades.</p>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div class="footer-col"><h3>Cadastro de Artistas</h3><p>Espaço para aproximar artistas, grupos culturais e projetos das Casas de Cultura.</p></div>
+        <div class="footer-col"><h3>Portal Cultural</h3><p>Uma ferramenta para divulgar atividades, localizar unidades e fortalecer a participação cultural.</p></div>
+        <div class="footer-col"><h3>Contato</h3><p>Use também a aba Contato para dúvidas, sugestões e propostas culturais.</p></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Portal Cultural - Casa de Cultura Raul Seixas. Todos os direitos reservados.</p></div>
+</footer>
+
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+<script src="script.js"></script>
+
+
+
+
+
+
+
+<script>
+function limparSessaoArtista() {
+    localStorage.removeItem("usuarioLogado");
+    localStorage.removeItem("supabase.auth.token");
+    sessionStorage.clear();
+
+    Object.keys(localStorage).forEach((chave) => {
+        const nome = chave.toLowerCase();
+        if (
+            nome.includes("supabase") ||
+            nome.includes("auth-token") ||
+            nome.includes("sb-") ||
+            nome.includes("usuario")
+        ) {
+            localStorage.removeItem(chave);
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado") || "null");
+    const tipo = String(usuario?.tipoUsuario || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    if (!usuario || (tipo !== "artista" && tipo !== "administrador" && tipo !== "admin")) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    const btnSairArtista = document.getElementById("btnSairArtista");
+
+    if (btnSairArtista) {
+        btnSairArtista.addEventListener("click", async function (event) {
+            event.preventDefault();
+
+            try {
+                if (window.supabaseClient && window.supabaseClient.auth) {
+                    await window.supabaseClient.auth.signOut();
+                }
+            } catch (erro) {
+                console.warn("Sessão Supabase não finalizada, limpando localmente.", erro);
+            }
+
+            limparSessaoArtista();
+            window.location.replace("index.html");
+        });
+    }
+});
+</script>
+
+<script src="cadastro-artista.js"></script>
+    <script src="menu.js"></script>
+</body>
+</html>
