@@ -1042,3 +1042,139 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(ocultarControlesDuplicadosAdmin, 900);
     setTimeout(ocultarControlesDuplicadosAdmin, 1600);
 });
+
+
+eventoLocalStorageEhValidoAdminFinal = function () {
+    return true;
+};
+
+obterEventosSalvosAdminFinal = function (casa, tipoFiltro) {
+    const todos = [];
+    const casaNormalizada = normalizarAdminFinal(casa);
+
+    ["eventosAdmin", "eventosPortal", "eventosCulturais", "eventos"].forEach(chave => {
+        const eventos = JSON.parse(localStorage.getItem(chave) || "[]");
+
+        if (!Array.isArray(eventos)) return;
+
+        eventos.forEach((evento, index) => {
+            const local = evento.local || evento.localEvento || evento.casa || evento.unidade || "";
+            const localNormalizado = normalizarAdminFinal(local);
+            const tipo = obterTipoEventoAdminFinal(evento);
+
+            const bateCasa =
+                !casa ||
+                localNormalizado.includes(casaNormalizada) ||
+                casaNormalizada.includes(localNormalizado);
+
+            const bateTipo = tipoFiltro === "todos" || tipo === tipoFiltro;
+
+            if (bateCasa && bateTipo) {
+                todos.push({
+                    ...evento,
+                    tipo,
+                    periodicidade: tipo === "mensal" ? "Mensal" : "Semanal",
+                    titulo: evento.titulo || evento.nome || "Evento cultural",
+                    nome: evento.nome || evento.titulo || "Evento cultural",
+                    categoria: evento.categoria || "EVENTO",
+                    data: evento.data || evento.dataEvento || "",
+                    hora: evento.hora || evento.horario || "",
+                    horario: evento.horario || evento.hora || "",
+                    local,
+                    origem: "localStorage",
+                    __chaveOrigem: chave,
+                    __indexOrigem: index
+                });
+            }
+        });
+    });
+
+    return todos;
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const formAdminVinculo = document.getElementById("eventoForm");
+
+    if (formAdminVinculo && !formAdminVinculo.dataset.vinculoControleAplicado) {
+        formAdminVinculo.dataset.vinculoControleAplicado = "true";
+
+        formAdminVinculo.addEventListener("submit", () => {
+            setTimeout(() => {
+                if (typeof aplicarFiltroAdminFinal === "function") {
+                    aplicarFiltroAdminFinal();
+                }
+
+                const selectCasa = document.getElementById("filtroCasaEventosAdmin");
+                const localEvento = document.getElementById("localEvento");
+
+                if (selectCasa && localEvento && localEvento.value) {
+                    selectCasa.value = localEvento.value;
+                    aplicarFiltroAdminFinal();
+                }
+            }, 200);
+        });
+    }
+});
+
+
+
+
+
+function mostrarPopupEventoSalvo() {
+    let popup = document.getElementById("popupEventoSalvo");
+
+    if (!popup) {
+        popup = document.createElement("div");
+        popup.id = "popupEventoSalvo";
+        popup.className = "popup-evento-salvo";
+        popup.innerHTML = `
+            <div class="popup-evento-salvo-card">
+                <strong>Evento salvo com sucesso!</strong>
+                <span>O evento foi adicionado à Home e ao controle administrativo.</span>
+                <button type="button" id="btnFecharPopupEvento">OK</button>
+            </div>
+        `;
+        document.body.appendChild(popup);
+    }
+
+    popup.classList.add("mostrar");
+
+    const fechar = document.getElementById("btnFecharPopupEvento");
+    if (fechar) {
+        fechar.onclick = () => popup.classList.remove("mostrar");
+    }
+
+    setTimeout(() => {
+        popup.classList.remove("mostrar");
+    }, 3500);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const formEventoPopup = document.getElementById("eventoForm");
+
+    if (!formEventoPopup || formEventoPopup.dataset.popupSalvarAplicado === "true") return;
+
+    formEventoPopup.dataset.popupSalvarAplicado = "true";
+
+    formEventoPopup.addEventListener("submit", () => {
+        const camposObrigatorios = [
+            "nomeEvento",
+            "categoriaEvento",
+            "dataEvento",
+            "horarioEvento",
+            "localEvento",
+            "descricaoEvento"
+        ];
+
+        const formularioValido = camposObrigatorios.every(id => {
+            const campo = document.getElementById(id);
+            return campo && String(campo.value || "").trim();
+        });
+
+        if (!formularioValido) return;
+
+        setTimeout(() => {
+            mostrarPopupEventoSalvo();
+        }, 250);
+    });
+});

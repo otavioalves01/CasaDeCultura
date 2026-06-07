@@ -872,3 +872,80 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+function obterEventosAdminDaCasaHomeFinal(casa, tipoFiltro) {
+    const eventosAdmin = JSON.parse(localStorage.getItem("eventosAdmin") || "[]");
+    const casaNormalizada = normalizarCasaHome(casa);
+
+    return eventosAdmin
+        .filter(evento => {
+            const tipoBase = String(evento.tipo || evento.periodicidade || "semanal").toLowerCase();
+            const tipo = tipoBase.includes("mensal") ? "mensal" : "semanal";
+            const local = evento.local || evento.localEvento || evento.casa || evento.unidade || "";
+            const localNormalizado = normalizarCasaHome(local);
+
+            const bateCasa =
+                localNormalizado.includes(casaNormalizada) ||
+                casaNormalizada.includes(localNormalizado);
+
+            return bateCasa && tipo === tipoFiltro;
+        })
+        .map(evento => {
+            const tipoBase = String(evento.tipo || evento.periodicidade || "semanal").toLowerCase();
+            const tipo = tipoBase.includes("mensal") ? "mensal" : "semanal";
+
+            return {
+                ...evento,
+                tipo,
+                periodicidade: tipo === "mensal" ? "Mensal" : "Semanal",
+                titulo: evento.titulo || evento.nome || "Evento cultural",
+                nome: evento.nome || evento.titulo || "Evento cultural",
+                categoria: evento.categoria || "EVENTO",
+                data: evento.data || evento.dataEvento || "",
+                horario: evento.horario || evento.hora || "",
+                hora: evento.hora || evento.horario || "",
+                local: evento.local || evento.localEvento || casa,
+                origem: "admin"
+            };
+        });
+}
+
+obterEventosCasaSelecionada = function () {
+    if (!casaSelecionadaHome) return [];
+
+    const eventosAdmin = obterEventosAdminDaCasaHomeFinal(casaSelecionadaHome, tipoEventoHome);
+
+    let eventosFixos = [];
+
+    if (typeof EVENTOS_POR_CASA !== "undefined") {
+        const chave = encontrarChaveEventosCasa(casaSelecionadaHome);
+
+        if (chave) {
+            const grupo = EVENTOS_POR_CASA[chave] || { semanal: [], mensal: [] };
+            eventosFixos = grupo[tipoEventoHome] || [];
+        }
+    }
+
+    return [...eventosFixos, ...eventosAdmin];
+};
+
+criarCardEventoHome = function (evento) {
+    const dataHorario = [evento.data || evento.dataEvento, evento.horario || evento.hora].filter(Boolean).join(" | ");
+
+    return `
+        <div class="cardpro">
+            <span class="categoria">${evento.categoria || "EVENTO"}</span>
+            <h4>${evento.titulo || evento.nome || "Evento cultural"}</h4>
+            ${dataHorario ? `<div class="time-info">${dataHorario}</div>` : ""}
+            ${evento.descricao ? `<p class="evento-descricao-home">${evento.descricao}</p>` : ""}
+            <p class="evento-local-home">📍 ${evento.local || casaSelecionadaHome}</p>
+        </div>
+    `;
+};
+
+window.addEventListener("storage", event => {
+    if (event.key === "eventosAdmin" && typeof renderizarEventosDaCasaHome === "function") {
+        renderizarEventosDaCasaHome();
+    }
+});
